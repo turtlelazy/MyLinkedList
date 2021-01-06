@@ -17,5 +17,22 @@ public class Node {
         return data;
     }
 
+    public Node setNext(Node next){
+        Node old = this.next;
+        this.next = next;
+        return old;
+    }
+
+    public Node setPrev(Node prev) {
+        Node old = this.prev;
+        this.prev = prev;
+        return old;
+    }
+
+    public String setData(String data){
+        String old = this.data;
+        this.data = data;
+        return old;
+    }
 
 }
