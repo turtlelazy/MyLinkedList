@@ -18,11 +18,32 @@ public class MyLinkedList {
         end.setData(value);
 
         oldEnd.setNext(end);
-
+        size++;
         return true;
     }
 
-    public void add(int index, String value);
+    public void add(int index, String value){
+        Node addNode = new Node(value);
+
+        if(index>size){
+            throw new IndexOutOfBoundsException();
+        }
+        if(index==size){
+            add(value);
+        }
+        else{
+            Node current = start;
+            for(int i = 0; i < index;i++){
+                current = current.getNext();
+            }
+            
+            current.getPrev().setNext(addNode);
+            addNode.setPrev(current.getPrev());
+            addNode.setNext(current);
+            current.setPrev(addNode);
+            
+        }
+    }
 
     public String get(int index);
 
