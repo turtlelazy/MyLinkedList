@@ -12,13 +12,24 @@ public class MyLinkedList {
 
 
     public boolean add(String value){
-        Node oldEnd = end;
-        
-        end.setPrev(oldEnd);
-        end.setData(value);
+        if(size==0){
+            start = new Node(value);
+        }
+        else if (size == 1) {
+            end = new Node(value);
+            end.setData(value);
+            end.setPrev(start);
 
-        end.getPrev().setNext(end);
+            start.setNext(end);
+        }
+        else{
+            Node oldEnd = new Node(end.getData());
+            end.getPrev().setNext(oldEnd);
 
+            end.setPrev(oldEnd);
+            end.setData(value);
+            end.getPrev().setNext(end);
+        }
         size++;
         return true;
     }
@@ -26,7 +37,7 @@ public class MyLinkedList {
     public void add(int index, String value){
         Node addNode = new Node(value);
 
-        if(index>size){
+        if(index >= size || index < 0){
             throw new IndexOutOfBoundsException();
         }
 
@@ -49,7 +60,7 @@ public class MyLinkedList {
     }
 
     public String get(int index){
-        if (index > size || index < 0) {
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -62,7 +73,7 @@ public class MyLinkedList {
     }
 
     public String set(int index, String value){
-        if (index > size || index < 0) {
+        if (index >= size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
         Node current = start;
@@ -83,10 +94,10 @@ public class MyLinkedList {
             toString += current.getData();
             current = current.getNext();
             if(current!=null){
-                toString+=",";
+                toString+=", ";
             }
         }
-        return toString;
+        return "[" + toString + "]";
     }
-    
+
 }
