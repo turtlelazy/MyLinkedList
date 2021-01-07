@@ -13,11 +13,12 @@ public class MyLinkedList {
 
     public boolean add(String value){
         Node oldEnd = end;
-
+        
         end.setPrev(oldEnd);
         end.setData(value);
 
-        oldEnd.setNext(end);
+        end.getPrev().setNext(end);
+
         size++;
         return true;
     }
@@ -28,6 +29,7 @@ public class MyLinkedList {
         if(index>size){
             throw new IndexOutOfBoundsException();
         }
+
         if(index==size){
             add(value);
         }
@@ -43,10 +45,11 @@ public class MyLinkedList {
             current.setPrev(addNode);
             
         }
+        size++;
     }
 
     public String get(int index){
-        if (index > size) {
+        if (index > size || index < 0) {
             throw new IndexOutOfBoundsException();
         }
 
@@ -58,8 +61,32 @@ public class MyLinkedList {
         return current.getData();
     }
 
-    public String set(int index, String value);
+    public String set(int index, String value){
+        if (index > size || index < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+        Node current = start;
+        for(int i = 0; i < index;i++){
+            current = current.getNext();
+        }
 
-    public String toString();
-    // Any helper method that returns a Node object MUST BE PRIVATE!
+        String oldData = current.getData();
+        current.setData(value);
+        return oldData;
+    }
+
+    public String toString(){
+        Node current = start;
+        String toString = "";
+
+        while(current!= null){
+            toString += current.getData();
+            current = current.getNext();
+            if(current!=null){
+                toString+=",";
+            }
+        }
+        return toString;
+    }
+    
 }
