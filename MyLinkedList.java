@@ -16,20 +16,23 @@ public class MyLinkedList {
             start = new Node(value);
             start.setNext(end);
         }
+
         else if (size == 1) {
             end = new Node(value);
             end.setPrev(start);
         }
+
         else{
             Node oldEnd = new Node(end.getData());
             oldEnd.setPrev(end.getPrev());
-            
+
             end.getPrev().setNext(oldEnd);
 
             end.setPrev(oldEnd);
             end.setData(value);
             end.getPrev().setNext(end);
         }
+
         size++;
         return true;
     }
@@ -114,9 +117,22 @@ public class MyLinkedList {
             throw new IndexOutOfBoundsException();
         }
         Node toRemove = getNodeForwards(index);
-        toRemove.getPrev().setNext(toRemove.getNext());
-        toRemove.getNext().setPrev(toRemove.getPrev());
+        if (index == 0) {
+            start = toRemove.getNext();
+            start.setPrev(toRemove.getPrev());
+        }
 
+        else if (index == size - 1) {
+            end = toRemove.getPrev();
+            end.setNext(toRemove.getNext());
+        }   
+
+        else{
+            toRemove.getPrev().setNext(toRemove.getNext());
+            toRemove.getNext().setPrev(toRemove.getPrev());
+        }
+
+        size --;
         return toRemove.getData();
     }
 

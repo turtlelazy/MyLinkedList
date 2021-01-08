@@ -156,6 +156,8 @@ public class Tester {
         m.add("bar");
 
         m.remove(1);
+        m.remove(0);
+        m.remove(1);
         System.out.println(m.toString());
 
 
