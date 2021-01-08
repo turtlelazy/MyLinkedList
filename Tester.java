@@ -149,6 +149,15 @@ public class Tester {
         } catch(RuntimeException e) {
             except(test, e);
         }
+        MyLinkedList m = new MyLinkedList();
+        m.add("hello");
+        m.add("world");
+        m.add("foo");
+        m.add("bar");
+
+        m.remove(1);
+        System.out.println(m.toString());
+
 
         if (ERR == 0) System.out.println("All good!");
         else if (ERR == 1) System.out.println("Uh oh... 1 error found.");

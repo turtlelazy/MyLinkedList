@@ -18,11 +18,12 @@ public class MyLinkedList {
         }
         else if (size == 1) {
             end = new Node(value);
-            end.setData(value);
             end.setPrev(start);
         }
         else{
             Node oldEnd = new Node(end.getData());
+            oldEnd.setPrev(end.getPrev());
+            
             end.getPrev().setNext(oldEnd);
 
             end.setPrev(oldEnd);
@@ -109,6 +110,9 @@ public class MyLinkedList {
     }
 
     public String remove(int index){
+        if(index < 0 || index >= size){
+            throw new IndexOutOfBoundsException();
+        }
         Node toRemove = getNodeForwards(index);
         toRemove.getPrev().setNext(toRemove.getNext());
         toRemove.getNext().setPrev(toRemove.getPrev());
