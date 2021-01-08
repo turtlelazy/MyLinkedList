@@ -4,6 +4,12 @@ public class Node {
     public Node(String value) {
         data = value;
     }
+
+    public Node(Node copyNode){
+        this.data = copyNode.data;
+        this.next = copyNode.next;
+        this.prev = copyNode.prev;
+    }
     
     public Node getNext(){
         return next;
