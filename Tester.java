@@ -1,10 +1,8 @@
 /******************************************************************************
- *  Compilation:  javac Tester.java
- *  Execution:    java Tester [DEBUG]
+ * Compilation: javac Tester.java Execution: java Tester [DEBUG]
  *
- *  DEBUG: Whether to add extra outputs (seed, error output). Defaults true.
+ * DEBUG: Whether to add extra outputs (seed, error output). Defaults true.
  ******************************************************************************/
-
 public class Tester {
     public static int ERR = 0;
     public static boolean DEBUG = true;
@@ -154,11 +152,7 @@ public class Tester {
         m.add("world");
         m.add("foo");
         m.add("bar");
-
-        m.remove(1);
-        m.remove(0);
-        m.remove(1);
-        System.out.println(m.toString());
+        System.out.println(m.toStringReversed());
 
 
         if (ERR == 0) System.out.println("All good!");

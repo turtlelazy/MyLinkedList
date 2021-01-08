@@ -112,6 +112,20 @@ public class MyLinkedList {
         return "[" + toString + "]";
     }
 
+    public String toStringReversed(){
+        Node current = end;
+        String toString = "";
+
+        while (current != null) {
+            toString += current.getData();
+            current = current.getPrev();
+            if (current != null) {
+                toString += ", ";
+            }
+        }
+        return "[" + toString + "]";
+    }
+
     public String remove(int index){
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
