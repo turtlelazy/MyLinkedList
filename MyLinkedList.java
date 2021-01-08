@@ -108,4 +108,20 @@ public class MyLinkedList {
         return "[" + toString + "]";
     }
 
+    public String remove(int index){
+        Node toRemove = getNodeForwards(index);
+        toRemove.getPrev().setNext(toRemove.getNext());
+        toRemove.getNext().setPrev(toRemove.getPrev());
+
+        return toRemove.getData();
+    }
+
+    private Node getNodeForwards(int index){
+        Node current = start;
+        for(int i = 0; i < index; i ++){
+            current = current.getNext();
+        }
+
+        return current;
+    }
 }
