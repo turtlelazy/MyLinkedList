@@ -176,6 +176,11 @@ public class MyLinkedList {
         other.start.setPrev(this.end);
 
         this.end = other.end;
+
         other.start = null;
+        other.end = null;
+        
+        this.size = this.size + other.size;
+        other.size = 0;
     }
 }
