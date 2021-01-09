@@ -13,24 +13,29 @@ public class MyLinkedList {
 
     public boolean add(String value){
         if(size==0){
-            start = new Node(value);
-            start.setNext(end);
-        }
-
-        else if (size == 1) {
-            end = new Node(value);
-            end.setPrev(start);
+            Node addedNode = new Node(value);
+            start = addedNode;
+            end = addedNode;
         }
 
         else{
-            Node oldEnd = new Node(end.getData());
+            Node addedNode = new Node(value);
+            end.setNext(addedNode);
+            addedNode.setPrev(end);
+
+            end = addedNode;
+
+            /*
+            Node oldEnd = end;
             oldEnd.setPrev(end.getPrev());
+            if(size!=1){
+                end.getPrev().setNext(oldEnd);
+            }
 
-            end.getPrev().setNext(oldEnd);
-
+            end = new Node(value);
             end.setPrev(oldEnd);
-            end.setData(value);
-            end.getPrev().setNext(end);
+            oldEnd.setNext(end);
+            */
         }
 
         size++;
@@ -45,27 +50,25 @@ public class MyLinkedList {
         else if(index==size){
             add(value);
         }
-        else if(size == 1 && index == 0){
-            String oldStartData = start.getData();
-            start.setData(value);
+        else if(index == 0){
+            Node newNode = new Node(value);
+            newNode.setNext(start);
+            start.setPrev(newNode);
 
-            end = new Node(oldStartData);
-            end.setPrev(start);
+            start = newNode;
             size++;
 
         }
         else{
-            Node current = start;
-            for(int i = 0; i < index;i++){
-                current = current.getNext();
-            }
-            Node copyCurrent = new Node(current);
+            Node current = getNodeForwards(index);
+            Node newNode = new Node(value);
 
-            current.setData(value);
-            current.setPrev(copyCurrent.getPrev());
-            current.setNext(copyCurrent);
-            
-            copyCurrent.setPrev(current);
+            newNode.setPrev(current.getPrev());
+            newNode.getPrev().setNext(newNode);
+
+            current.setPrev(newNode);
+            newNode.setNext(current);
+
             size++;
             
         }
@@ -127,21 +130,24 @@ public class MyLinkedList {
     }
 
     public String remove(int index){
+
         if(index < 0 || index >= size){
             throw new IndexOutOfBoundsException();
         }
+
         Node toRemove = getNodeForwards(index);
+
         if (index == 0) {
             start = toRemove.getNext();
-            start.setPrev(toRemove.getPrev());
         }
 
-        else if (index == size - 1) {
+        else if(index == size-1) {
             end = toRemove.getPrev();
-            end.setNext(toRemove.getNext());
-        }   
+            end.setPrev(toRemove.getNext());
+            end.setNext(toRemove.getPrev());
+        }
 
-        else{
+        else {
             toRemove.getPrev().setNext(toRemove.getNext());
             toRemove.getNext().setPrev(toRemove.getPrev());
         }
@@ -157,5 +163,9 @@ public class MyLinkedList {
         }
 
         return current;
+    }
+
+    public void extend(MyLinkedList other){
+
     }
 }
