@@ -137,14 +137,20 @@ public class MyLinkedList {
 
         Node toRemove = getNodeForwards(index);
 
-        if (index == 0) {
-            start = toRemove.getNext();
+        if (size == 1) {
+            start = null;
+            end = null;
+
         }
 
+        else if (index == 0) {
+            start = toRemove.getNext();
+            start.setPrev(null);
+        }
+        
         else if(index == size-1) {
             end = toRemove.getPrev();
-            end.setPrev(toRemove.getNext());
-            end.setNext(toRemove.getPrev());
+            end.setNext(null);
         }
 
         else {
@@ -166,6 +172,10 @@ public class MyLinkedList {
     }
 
     public void extend(MyLinkedList other){
+        this.end.setNext(other.start);
+        other.start.setPrev(this.end);
 
+        this.end = other.end;
+        other.start = null;
     }
 }
